@@ -15,15 +15,17 @@ public class LogicScript : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip loseALifeSoundEffect;
     public AudioClip gameOver;
+    public GameOver gameOverManager;
     void Start()
     {
         audioSource = GameObject.FindObjectOfType<AudioSource>();
-
+        if (gameOverManager == null)
+            gameOverManager = FindObjectOfType<GameOver>();
         UpdateScoreUI();
         UpdateLivesUI();
         UpdateHighScoreUI();
     }
-    public void addScore(int value)
+    public void AddScore(int value)
     {
         playerScore += value;
         UpdateScoreUI();
@@ -34,28 +36,28 @@ public class LogicScript : MonoBehaviour
             audioSource.PlayOneShot(loseALifeSoundEffect);
         else
             Debug.Log("Either your Audio Source or your Audio Clip are unassigned!");
-
         currentLives--;
         UpdateLivesUI();
-
         if (currentLives <= 0)
         {
             if (audioSource != null && gameOver != null)
                 audioSource.PlayOneShot(gameOver);
             else
                 Debug.Log("Either your Audio Manager or your Audio Clip are unassigned!");
-
             CheckHighScore();
             Debug.Log("Game Over!");
-
-            var playerMovement = GameObject.FindWithTag("Player")?.GetComponent<PlayerMovement>();
+            if (gameOverManager != null)
+                gameOverManager.GameOverNow();
+            else
+                Debug.LogWarning("GameOverManager reference missing!");
+            var playerMovement = GetComponent<PlayerMovement>();
             if (playerMovement != null)
                 playerMovement.Die();
         }
     }
     void UpdateScoreUI()
     {
-        if (scoreText != null)
+        if (scoreText != null){}
             scoreText.text = "Player " + playerID + " Shells: " + playerScore.ToString();
     }
     void UpdateLivesUI()
@@ -77,17 +79,14 @@ public class LogicScript : MonoBehaviour
             PlayerPrefs.SetInt("highScore", playerScore);
             PlayerPrefs.Save();
             Debug.Log("New High Score: " + playerScore);
-
             if (highScoreText != null)
                 highScoreText.text = "High Score: " + playerScore.ToString();
         }
     }
-
     public int GetHighScore()
     {
         return PlayerPrefs.GetInt("highScore", 0);
     }
-
     [ContextMenu("Reset High Score")]
     public void ResetHighScore()
     {

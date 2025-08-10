@@ -17,11 +17,11 @@ public class ShellSpawnScript : MonoBehaviour
         }
         else
         {
-            spawnFruit();
+            spawnShell();
             timer = 0;
         }
     }
-    void spawnFruit()
+    void spawnShell()
     {
         if (shells.Length == 0) return;
 

@@ -14,6 +14,10 @@ public class PlayerScore : MonoBehaviour
     void UpdateScoreUI()
     {
         if (ScoreText != null)
-            ScoreText.text = "Player " + playerID + " Shells: " + score.ToString();
+            ScoreText.text = "Player " + playerID + " Shells: " + score;
+    }
+    public int GetScore()
+    {
+        return score;
     }
 }
