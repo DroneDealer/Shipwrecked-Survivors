@@ -44,7 +44,6 @@ public class LogicScript : MonoBehaviour
             Debug.Log("Either your Audio Source or your Audio Clip are unassigned!");
         }
         currentLives = currentLives - 1;
-        //Note: =- 1 sets Lives to -1 every time. -= 1 subtracts 1 from lives. oops
         livesText.text = "Lives: " + currentLives.ToString();
 
         if (currentLives <= 0)
