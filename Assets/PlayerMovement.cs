@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public Animator animator;
     public float speed = 5f;
+    public int playerID = 1;
     private bool IsDead = false;
     private SpriteRenderer spriteRenderer;
     void Start()
@@ -17,17 +18,39 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        float horizontalInput = Input.GetAxis("Horizontal");
-        animator.SetFloat("Speed", Mathf.Abs(horizontalInput));
+        float horizontalInput = 0f;
+        float verticalInput = 0f;
+
+        if (playerID == 1)
+        {
+            horizontalInput = Input.GetAxis("Horizontal");
+            verticalInput = Input.GetAxis("Vertical");
+        }
+        else if (playerID == 2)
+        {
+            horizontalInput = Input.GetAxis("Horizontal2");
+            verticalInput = Input.GetAxis("Vertical2");
+        }
+        else if (playerID == 3)
+        {
+            horizontalInput = Input.GetAxis("Horizontal3");
+            verticalInput = Input.GetAxis("Vertical3");
+        }
+
+        animator.SetFloat("Speed", Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput));
 
         if (horizontalInput != 0)
         {
             spriteRenderer.flipX = horizontalInput < 0;
         }
-        Vector3 horizontal = new Vector3(horizontalInput, 0f, 0f);
-        transform.position = transform.position + horizontal * speed * Time.deltaTime;
-    }
+        if (verticalInput != 0)
+        {
+            spriteRenderer.flipY = verticalInput < 0;
+        }
 
+        Vector3 direction = new Vector3(horizontalInput, verticalInput, 0f);
+        transform.position += direction * speed * Time.deltaTime;
+    }
     public void Die()
     {
         Debug.Log("Die() called");
@@ -60,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
 
         foreach (GameObject obj in GameObject.FindObjectsOfType<GameObject>())
         {
-            if (obj.CompareTag("GameController") || obj.CompareTag("GameOverUI") || obj.CompareTag("MainCamera") || obj.name == "EventSystem" || obj.CompareTag("WorldTreeUI") || obj.CompareTag("Managers"))
+            if (obj.CompareTag("GameController") || obj.CompareTag("GameOverUI") || obj.CompareTag("MainCamera") || obj.name == "EventSystem" || obj.CompareTag("ShipUI") || obj.CompareTag("Managers"))
             {
                 continue;
             }
@@ -70,6 +93,5 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         gameObject.SetActive(false);
-
     }
 }

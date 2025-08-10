@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Logic
+  - GameOverUI
+  - Managers
   layers:
   - Default
   - TransparentFX

@@ -14,21 +14,32 @@ public class ShellScript : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log($"Triggered by: {collision.name}");
-        if (audioSource != null && grabShell != null)
-        {
-            Debug.Log("Played grab shell sound.");
-            audioSource.PlayOneShot(grabShell);
-        }
-        else
-        {
-            Debug.Log("Either your audio manager or your audio clip are unassigned!");
-        }
-        Debug.Log("Before adding score.");
-        Logic.addScore(shellWorth);
-        Debug.Log("After adding score.");
 
-        Debug.Log("Before destroy.");
-        Destroy(gameObject);
-        Debug.Log("After destroy.");
+        if (collision.CompareTag("Player"))
+        {
+            PlayerScore playerScore = collision.GetComponent<PlayerScore>();
+            if (playerScore != null)
+            {
+                playerScore.AddScore(shellWorth);
+            }
+
+            if (audioSource != null && grabShell != null)
+            {
+                Debug.Log("Played grab shell sound.");
+                audioSource.PlayOneShot(grabShell);
+            }
+            else
+            {
+                Debug.Log("Either your audio manager or your audio clip are unassigned!");
+            }
+
+            Debug.Log("Before adding score.");
+            Logic.addScore(shellWorth);
+            Debug.Log("After adding score.");
+
+            Debug.Log("Before destroy.");
+            Destroy(gameObject);
+            Debug.Log("After destroy.");
+        }
     }
 }
