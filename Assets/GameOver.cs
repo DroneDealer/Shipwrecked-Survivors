@@ -9,9 +9,6 @@ public class GameOver : MonoBehaviour
     public LogicScript logicScript;
     public GameObject shipCanvas;
     public Transform shipLocation;
-    public GameObject player;
-    public GameObject player1;
-    public GameObject player2;
     public AudioSource audioSource;
     public AudioClip gameOVerMusic;
     void Start()
@@ -22,6 +19,7 @@ public class GameOver : MonoBehaviour
 
     public void GameOverNow()
     {
+        Debug.Log("Game OverNOw");
         logicScript.CheckHighScore();
         gameOverCanvas.SetActive(true);
         Time.timeScale = 0f;
@@ -34,13 +32,10 @@ public class GameOver : MonoBehaviour
         Time.timeScale = 1f;
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
-    public void GoToWorldTree()
+    public void GoToShipwreck()
     {
         gameOverCanvas.SetActive(false);
         shipCanvas.SetActive(true);
         Time.timeScale = 1f;
-        player.SetActive(false);
-        player1.SetActive(true);
-        player.transform.position = shipLocation.position;
     }
 }

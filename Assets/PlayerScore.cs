@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerScore : MonoBehaviour
 {
+    public int playerID = 1;
     public TextMeshProUGUI ScoreText;
     private int score = 0;
     public void AddScore(int amount)
@@ -13,6 +14,6 @@ public class PlayerScore : MonoBehaviour
     void UpdateScoreUI()
     {
         if (ScoreText != null)
-            ScoreText.text = "Score: " + score;
+            ScoreText.text = "Player " + playerID + " Shells: " + score.ToString();
     }
 }

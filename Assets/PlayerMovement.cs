@@ -43,11 +43,6 @@ public class PlayerMovement : MonoBehaviour
         {
             spriteRenderer.flipX = horizontalInput < 0;
         }
-        if (verticalInput != 0)
-        {
-            spriteRenderer.flipY = verticalInput < 0;
-        }
-
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0f);
         transform.position += direction * speed * Time.deltaTime;
     }
@@ -60,10 +55,11 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("IsDead", true);
         Debug.Log("Die called. IsDead param set to true");
 
-        animator.Play("DeathAnimation", 0, 0f);
+        //animator.Play("DeathAnimation", 0, 0f);
         Debug.Log("Forced animation play");
+        FindObjectOfType<GameOver>().GameOverNow();
 
-        speed = 0f;
+        //speed = 0f;
         Collider2D col = GetComponent<Collider2D>();
         if (col != null)
         {
@@ -83,14 +79,11 @@ public class PlayerMovement : MonoBehaviour
 
         foreach (GameObject obj in GameObject.FindObjectsOfType<GameObject>())
         {
-            if (obj.CompareTag("GameController") || obj.CompareTag("GameOverUI") || obj.CompareTag("MainCamera") || obj.name == "EventSystem" || obj.CompareTag("ShipUI") || obj.CompareTag("Managers"))
+            if (obj.CompareTag("GameController") || obj.CompareTag("GameOverUI") || obj.CompareTag("MainCamera") || obj.name == "EventSystem" || obj.CompareTag("ShipUI") || obj.CompareTag("Managers") || obj.CompareTag("Logic"))
             {
                 continue;
             }
-            if (obj != gameObject)
-            {
-                obj.SetActive(false);
-            }
+            obj.SetActive(false);
         }
         gameObject.SetActive(false);
     }

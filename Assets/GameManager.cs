@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
                 ps.ScoreText = GameObject.Find("Score_Player" + (i + 1))?.GetComponent<TextMeshProUGUI>();
                 if (ps.ScoreText == null)
                     Debug.LogWarning("Score_Player" + (i + 1) + " UI text not found!");
+                ps.playerID = i + 1;
             }
             PlayerLabel label = player.GetComponentInChildren<PlayerLabel>();
             player.GetComponent<PlayerMovement>().playerID = i + 1;
