@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
                     Debug.LogWarning("Score_Player" + (i + 1) + " UI text not found!");
             }
             PlayerLabel label = player.GetComponentInChildren<PlayerLabel>();
+            player.GetComponent<PlayerMovement>().playerID = i + 1;
             if (label != null)
             {
                 label.playerID = i + 1;
