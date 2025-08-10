@@ -4,7 +4,7 @@ using TMPro;
 public class LogicScript : MonoBehaviour
 
 {
-    [Header("Essence of Life")]
+    [Header("Shells")]
     public int playerScore;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI highScoreText;
@@ -18,7 +18,7 @@ public class LogicScript : MonoBehaviour
     {
         audioSource = GameObject.FindObjectOfType<AudioSource>();
 
-        scoreText.text = "Score: " + playerScore.ToString();
+        scoreText.text = "Shells: " + playerScore.ToString();
         livesText.text = "Lives: " + currentLives.ToString();
 
         int savedHighScore = PlayerPrefs.GetInt("highScore", 0);
